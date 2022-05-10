@@ -7,7 +7,7 @@ import { Account, RestClient, TESTNET_URL, FAUCET_URL, FaucetClient } from "./fi
 
 const readline = require("readline").createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
 //:!:>section_1
@@ -34,7 +34,7 @@ class HelloBlockchainClient extends RestClient {
     if (resource == null) {
       return null;
     } else {
-      return resource["data"]["message"]
+      return resource["data"]["message"];
     }
   }
   //<:!:section_2
@@ -47,7 +47,7 @@ class HelloBlockchainClient extends RestClient {
       "function": `0x${contractAddress}::Message::set_message`,
       "type_arguments": [],
       "arguments": [
-        Buffer.from(message, "utf-8").toString("hex")
+        Buffer.from(message, "utf-8").toString("hex"),
       ]
     };
 

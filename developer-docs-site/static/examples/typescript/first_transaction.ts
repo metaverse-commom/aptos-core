@@ -60,7 +60,7 @@ export class RestClient {
   //:!:>section_3
   /** Returns the sequence number and authentication key for an account */
   async account(accountAddress: string): Promise<Record<string, string> & { sequence_number: string }> {
-    const response = await fetch(`${this.url}/accounts/${accountAddress}`, {method: "GET"});
+    const response = await fetch(`${this.url}/accounts/${accountAddress}`, { method: "GET" });
     if (response.status != 200) {
       assert(response.status == 200, await response.text());
     }
@@ -69,9 +69,9 @@ export class RestClient {
 
   /** Returns all resources associated with the account */
   async accountResource(accountAddress: string, resourceType: string): Promise<any> {
-    const response = await fetch(`${this.url}/accounts/${accountAddress}/resource/${resourceType}`, {method: "GET"});
+    const response = await fetch(`${this.url}/accounts/${accountAddress}/resource/${resourceType}`, { method: "GET" });
     if (response.status == 404) {
-        return null
+        return null;
     }
     if (response.status != 200) {
       assert(response.status == 200, await response.text());
@@ -104,7 +104,7 @@ export class RestClient {
     const response = await fetch(`${this.url}/transactions/signing_message`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(txnRequest)
+      body: JSON.stringify(txnRequest),
     });
     if (response.status != 200) {
       assert(response.status == 200, (await response.text()) + " - " + JSON.stringify(txnRequest));
@@ -126,7 +126,7 @@ export class RestClient {
     const response = await fetch(`${this.url}/transactions`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(txnRequest)
+      body: JSON.stringify(txnRequest),
     });
     if (response.status != 202) {
       assert(response.status == 202, (await response.text()) + " - " + JSON.stringify(txnRequest));
@@ -135,7 +135,7 @@ export class RestClient {
   }
 
   async transactionPending(txnHash: string): Promise<boolean> {
-    const response = await fetch(`${this.url}/transactions/${txnHash}`, {method: "GET"});
+    const response = await fetch(`${this.url}/transactions/${txnHash}`, { method: "GET" });
     if (response.status == 404) {
       return true;
     }
@@ -164,7 +164,7 @@ export class RestClient {
   async accountBalance(accountAddress: string): Promise<number | null> {
     const resource = await this.accountResource(accountAddress, "0x1::TestCoin::Balance");
     if (resource == null) {
-        return null
+        return null;
     }
     return parseInt(resource["data"]["coin"]["value"]);
   }
@@ -205,7 +205,7 @@ export class FaucetClient {
    coins into that account */
   async fundAccount(address: string, amount: number) {
     const url = `${this.url}/mint?amount=${amount}&address=${address}`;
-    const response = await fetch(url, {method: "POST"});
+    const response = await fetch(url, { method: "POST" });
     if (response.status != 200) {
       assert(response.status == 200, await response.text());
     }
